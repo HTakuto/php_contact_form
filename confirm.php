@@ -1,6 +1,7 @@
 <?php
 session_start();
 $_SESSION = $_POST;
+require('function.php');
 // echo '<pre>';var_dump($_POST);echo '</pre>';exit;
 ?>
 <!DOCTYPE html>
@@ -15,11 +16,11 @@ $_SESSION = $_POST;
 <h1>確認画面</h1>
 <form action="complate.php" method="post">
   <label for="name">名前</label><br>
-  <?php echo $_SESSION['name']; ?><br>
+  <?php echo h($_SESSION['name']); ?><br>
   <label for="email">メールアドレス</label><br>
-  <?php echo $_SESSION['email']; ?><br>
+  <?php echo h($_SESSION['email']); ?><br>
   <label for="content">お問い合わせ内容</label><br>
-  <?php echo $_SESSION['content']; ?><br>
+  <?php echo h($_SESSION['content']); ?><br>
   <input type="submit" value="送信">
   <input type="button" onclick="history.back()" value="戻る">
 </form>
