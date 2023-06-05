@@ -10,3 +10,10 @@ try {
   echo "接続失敗：" . $e->getMessage(). "\n";
   exit();
 }
+
+$db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+$sql = "INSERT INTO contact_form(id, name, email, content)VALUES(NULL, 'a', 'aaa', 'aaa')";
+$stmt = $db->prepare($sql);
+$stmt->execute();
