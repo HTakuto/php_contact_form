@@ -1,8 +1,6 @@
 <?php
 session_start();
-$_SESSION = $_POST;
 require('function.php');
-// echo '<pre>';var_dump($_POST);echo '</pre>';exit;
 ?>
 <!DOCTYPE html>
 <html lang="ja">
