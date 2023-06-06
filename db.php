@@ -37,7 +37,10 @@ class Db
   public function insertAdmin(){
     $userName = $_POST['name'];
     $userEmail = $_POST['email'];
-    $userPassword = $_POST['password'];
+    $options = [
+      'cost' => 12,
+    ];
+    $userPassword = password_hash($_POST['password'], PASSWORD_BCRYPT, $options);
 
     $sql = "INSERT INTO admin(id, name, email, password) VALUES(NULL, :userName, :userEmail, :userPassword)";
     $stmt = $this->db->prepare($sql);
