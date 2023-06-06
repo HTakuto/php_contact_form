@@ -1,7 +1,8 @@
 <?php
-$dsn = "mysql:dbname=php_scratch;host=localhost;charaset=utf-8";
-$user = "root";
-$password = "password1234";
+require('.magic.php');
+$dsn = DSN;
+$user = USER;
+$password = PASSWORD;
 
 try {
   $db= new PDO($dsn, $user, $password);
