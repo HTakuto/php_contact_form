@@ -1,8 +1,10 @@
 <?php
 session_start();
 require('function.php');
+require('db.php');
 if($_POST){
-  require('db.php');
+  $insertDb = new DB;
+  $insertDb->insertContact();
   header('Location: complate.php');
   exit;
 }
