@@ -1,6 +1,11 @@
 <?php
 session_start();
 require('function.php');
+if($_POST){
+  require('db.php');
+  header('Location: complate.php');
+  exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -12,13 +17,14 @@ require('function.php');
 </head>
 <body>
 <h1>確認画面</h1>
-<form action="complate.php" method="post">
+<form action="confirm.php" method="post">
   <label for="name">名前</label><br>
   <?php echo h($_SESSION['name']); ?><br>
   <label for="email">メールアドレス</label><br>
   <?php echo h($_SESSION['email']); ?><br>
   <label for="content">お問い合わせ内容</label><br>
   <?php echo h($_SESSION['content']); ?><br>
+  <input type="hidden" name="confirm">
   <input type="submit" value="送信">
   <input type="button" onclick="history.back()" value="戻る">
 </form>
