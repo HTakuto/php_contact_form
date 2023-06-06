@@ -4,6 +4,7 @@ require('function.php');
 require('db.php');
 if($_POST){
   $insertDb = new DB;
+  $insertDb->connectionDb();
   $insertDb->insertContact();
   header('Location: complate.php');
   exit;
