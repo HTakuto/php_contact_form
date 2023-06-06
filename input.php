@@ -1,7 +1,8 @@
 <?php
 session_start();
 require('validation.php');
-
+$validation = new Validation;
+$validation->validationContact();
 if ($_POST && empty($err_messages)) {
   $_SESSION['name'] = $_POST['name'];
   $_SESSION['email'] = $_POST['email'];
