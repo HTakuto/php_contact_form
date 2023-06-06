@@ -33,4 +33,17 @@ class Db
     $stmt->bindParam(':userContent', $userContent, PDO::PARAM_STR);
     $stmt->execute();
   }
+
+  public function insertAdmin(){
+    $userName = $_POST['name'];
+    $userEmail = $_POST['email'];
+    $userPassword = $_POST['password'];
+
+    $sql = "INSERT INTO admin(id, name, email, password) VALUES(NULL, :userName, :userEmail, :userPassword)";
+    $stmt = $this->db->prepare($sql);
+    $stmt->bindParam(':userName', $userName, PDO::PARAM_STR);
+    $stmt->bindParam(':userEmail', $userEmail, PDO::PARAM_STR);
+    $stmt->bindParam(':userPassword', $userPassword, PDO::PARAM_STR);
+    $stmt->execute();
+  }
 }
