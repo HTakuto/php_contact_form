@@ -70,4 +70,12 @@ class Db
         var_dump('ログインに失敗しました。');exit;
       }
   }
+
+  public function getUser() {
+    $sql = "SELECT name, email FROM admin";
+    $stmt = $this->db->prepare($sql);
+    $stmt->execute();
+    $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $users;
+  }
 }
