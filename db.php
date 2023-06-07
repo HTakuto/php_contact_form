@@ -49,4 +49,25 @@ class Db
     $stmt->bindParam(':userPassword', $userPassword, PDO::PARAM_STR);
     $stmt->execute();
   }
+
+  public function loginAdmin()
+  {
+      $userEmail = $_SESSION["email"];
+      $userPassword = $_SESSION["password"];
+
+      $sql = "SELECT * FROM admin WHERE email = :userEmail";
+      $stmt = $this->db->prepare($sql);
+      $stmt->bindParam(':userEmail', $userEmail, PDO::PARAM_STR);
+      $stmt->execute();
+
+      $admin = $stmt->fetch(PDO::FETCH_ASSOC);
+
+      $userPasswordHash = $admin['password'];
+      if ($admin && password_verify($userPassword, $userPasswordHash)) {
+          header('Location: user_list.php');
+          exit;
+      } else {
+        var_dump('ログインに失敗しました。');exit;
+      }
+  }
 }
