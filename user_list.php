@@ -1,3 +1,9 @@
+<?php
+require('db.php');
+$db = new Db;
+$db->connectionDb();
+$users = $db->getUser();
+?>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -8,28 +14,24 @@
 </head>
 <body>
   <table>
+    <thead>
     <tr>
         <th>名前</th>
         <th>メールアドレス</th>
         <th></th>
         <th></th>
     </tr>
-    <?php
-    $data = [
-        ['name' => 'ユーザー1', 'email' => 'user1@example.com'],
-        ['name' => 'ユーザー2', 'email' => 'user2@example.com'],
-        ['name' => 'ユーザー3', 'email' => 'user3@example.com'],
-    ];
-
-    foreach ($data as $row) {
-        echo '<tr>';
-        echo '<td>' . $row['name'] . '</td>';
-        echo '<td>' . $row['email'] . '</td>';
-        echo '<td><button>削除</button></td>';
-        echo '<td><button>修正</button></td>';
-        echo '</tr>';
-    }
-    ?>
+    </thead>
+    <tbody>
+      <?php foreach ($users as $user): ?>
+        <tr>
+          <td><?php echo $user['name']; ?></td>
+          <td><?php echo $user['email']; ?></td>
+          <td><button>削除</button></td>
+          <td><button>修正</button></td>
+        </tr>
+      <?php endforeach; ?>
+    </tbody>
   </table>
 </body>
 </html>
