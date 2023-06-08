@@ -2,10 +2,10 @@
 require('db.php');
 $db = new Db;
 $db->connectionDb();
-// var_dump($_POST['delete']);exit;
 if (!empty($_POST['delete'])) {
   $userId = $_POST['delete'];
   $db->deleteUser($userId);
+  echo "<script>alert('ユーザーを削除しました');</script>";
 }
 $users = $db->getUsers();
 ?>
@@ -16,11 +16,19 @@ $users = $db->getUsers();
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ユーザー一覧表示画面</title>
+  <script>
+    function confirmDelete(userId) {
+      if (confirm('本当に削除しますか？')) {
+        document.getElementById('delete' + userId).submit();
+      }
+    }
+  </script>
 </head>
 <body>
   <table>
     <thead>
     <tr>
+        <th>ID</th>
         <th>名前</th>
         <th>メールアドレス</th>
         <th></th>
@@ -34,9 +42,9 @@ $users = $db->getUsers();
           <td><?php echo $user['name']; ?></td>
           <td><?php echo $user['email']; ?></td>
           <td>
-            <form action="user_list.php" method="post">
+            <form id="delete<?php echo $user['id']; ?>" action="user_list.php" method="post">
               <input type="hidden" name="delete" value="<?php echo $user['id']; ?>">
-              <button type="submit">削除</button>
+              <button type="button" onclick="confirmDelete(<?php echo $user['id']; ?>)">削除</button>
             </form>
           </td>
           <td><button>修正</button></td>
