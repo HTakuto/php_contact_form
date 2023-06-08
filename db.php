@@ -86,4 +86,26 @@ class Db
       $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
       $stmt->execute();
   }
+
+  function getUser($userId)
+  {
+    $sql = "SELECT id, name, email FROM admin WHERE id = :userId";
+    $stmt = $this->db->prepare($sql);
+    $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+    $stmt->execute();
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $user;
+  }
+
+  function updateUser($userId, $name, $email)
+  {
+    $sql = "UPDATE admin SET name = :name, email = :email WHERE id = :userId";
+    $stmt = $this->db->prepare($sql);
+    $stmt->bindParam(':name', $name, PDO::PARAM_STR);
+    $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+    $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+    $stmt->execute();
+    header('Location: user_list.php');
+    exit;
+  }
 }
