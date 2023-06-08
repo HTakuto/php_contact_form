@@ -2,7 +2,12 @@
 require('db.php');
 $db = new Db;
 $db->connectionDb();
-$users = $db->getUser();
+// var_dump($_POST['delete']);exit;
+if (!empty($_POST['delete'])) {
+  $userId = $_POST['delete'];
+  $db->deleteUser($userId);
+}
+$users = $db->getUsers();
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -25,9 +30,15 @@ $users = $db->getUser();
     <tbody>
       <?php foreach ($users as $user): ?>
         <tr>
+          <td><?php echo $user['id']; ?></td>
           <td><?php echo $user['name']; ?></td>
           <td><?php echo $user['email']; ?></td>
-          <td><button>削除</button></td>
+          <td>
+            <form action="user_list.php" method="post">
+              <input type="hidden" name="delete" value="<?php echo $user['id']; ?>">
+              <button type="submit">削除</button>
+            </form>
+          </td>
           <td><button>修正</button></td>
         </tr>
       <?php endforeach; ?>

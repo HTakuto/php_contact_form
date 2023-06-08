@@ -71,11 +71,19 @@ class Db
       }
   }
 
-  public function getUser() {
-    $sql = "SELECT name, email FROM admin";
+  public function getUsers() {
+    $sql = "SELECT id, name, email FROM admin";
     $stmt = $this->db->prepare($sql);
     $stmt->execute();
     $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $users;
+  }
+
+  public function deleteUser($userId)
+  {
+      $sql = "DELETE FROM admin WHERE id = :userId";
+      $stmt = $this->db->prepare($sql);
+      $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+      $stmt->execute();
   }
 }
