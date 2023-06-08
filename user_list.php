@@ -1,4 +1,5 @@
 <?php
+session_start();
 require('db.php');
 $db = new Db;
 $db->connectionDb();
@@ -8,6 +9,11 @@ if (!empty($_POST['delete'])) {
   echo "<script>alert('ユーザーを削除しました');</script>";
 }
 $users = $db->getUsers();
+if(!empty($_POST['logout'])) {
+  session_destroy();
+  header('Location: login.php');
+  exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -16,6 +22,7 @@ $users = $db->getUsers();
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ユーザー一覧表示画面</title>
+  <?php if($_SESSION['email']):?>
   <script>
     function confirmDelete(userId) {
       if (confirm('本当に削除しますか？')) {
@@ -57,5 +64,10 @@ $users = $db->getUsers();
       <?php endforeach; ?>
     </tbody>
   </table>
+  <form action="user_list.php" method="post">
+    <input type="hidden" name="logout">
+    <input type="submit" value="ログアウト">
+  </form>
+  <?php endif; ?>
 </body>
 </html>
