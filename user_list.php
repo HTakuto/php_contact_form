@@ -47,7 +47,12 @@ $users = $db->getUsers();
               <button type="button" onclick="confirmDelete(<?php echo $user['id']; ?>)">削除</button>
             </form>
           </td>
-          <td><button>修正</button></td>
+          <td>
+          <form action="edit.php" method="post">
+            <input type="hidden" name="edit" value="<?php echo $user['id']; ?>">
+            <button type="submit">修正</button>
+          </form>
+        </td>
         </tr>
       <?php endforeach; ?>
     </tbody>
